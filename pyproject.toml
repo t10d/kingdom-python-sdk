@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "kingdom_core"
+version = "0.1.0"
+description = "Library containing the core modules for the kingdom-python-server."
+authors = ["William Abreu <william@t10.digital>"]
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.910"
+pydocstyle = "^6.1.1"
+pre-commit = "^2.15.0"
+black = "^21.9b0"
+flake8 = "^4.0.1"
+isort = "^5.9.3"
+pyclean = "^2.0.0"
+toml = "^0.10.2"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# See: https://mypy.readthedocs.io/en/stable/config_file.html
+
+[tool.mypy]
+exclude = "(\\..*|env|venv|__pycache__|build|dist)/$"
+files = ["kingdom_core"]
+python_version = "3.9"
+strict_optional = false
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+pretty = true
