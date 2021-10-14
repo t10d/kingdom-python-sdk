@@ -11,6 +11,11 @@ build: test clean
 	python setup.py sdist bdist_wheel
 	@echo "📦 build complete."
 
+publish: build
+	pip install --upgrade twine
+	twine upload dist/*
+	@echo "🎯 publish complete."
+
 black:
 	black . --line-length=79
 	@echo "✅ black done."
