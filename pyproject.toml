@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kingdom-core"
-version = "0.1.0"
+version = "0.2.0"
 description = "Library containing the core modules for the kingdom-python-server"
 authors = ["William Abreu <william@t10.digital>"]
 license = "MIT License"
