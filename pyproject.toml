@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "kingdom-core"
+name = "kingdom-sdk"
 version = "0.2.0"
 description = "Library containing the core modules for the kingdom-python-server"
 authors = ["William Abreu <william@t10.digital>"]
@@ -28,7 +28,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 exclude = "(\\..*|env|venv|__pycache__|build|dist)/$"
-files = ["kingdom_core"]
+files = ["kingdom_sdk"]
 python_version = "3.9"
 strict_optional = false
 ignore_missing_imports = true

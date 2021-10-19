@@ -1,6 +1,6 @@
 import os
 
-from kingdom_core.utils import files
+from kingdom_sdk.utils import files
 
 
 def test_files_find_ok(src_dir):

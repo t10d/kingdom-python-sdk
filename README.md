@@ -19,7 +19,7 @@ poetry add kingdom-core
 ## Usage
 
 ```python
-from kingdom_core.utils import files
+from kingdom_sdk.utils import files
 
 orm_files = files.find("orm.py", "/")
 ```

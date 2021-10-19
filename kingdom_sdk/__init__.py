@@ -7,11 +7,11 @@ __version__ = "0.2.0"
 
 
 def _get_base_dir() -> str:
-    """Return the absolute path for kingdom_core's root directory."""
+    """Return the absolute path for kingdom_sdk's root directory."""
     path, _ = os.path.split(os.path.dirname(__file__))
     return path
 
 
 def _get_src_dir() -> str:
-    """Return the absolute path for kingdom_core's source directory."""
+    """Return the absolute path for kingdom_sdk's source directory."""
     return os.path.dirname(__file__)

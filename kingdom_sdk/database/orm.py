@@ -3,7 +3,7 @@ from importlib.machinery import SourceFileLoader
 
 from sqlalchemy import MetaData
 
-from kingdom_core.utils import files
+from kingdom_sdk.utils import files
 
 
 def auto_start_mappers(src_dir: str) -> MetaData:
