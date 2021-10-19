@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kingdom-sdk"
-version = "0.2.0"
+version = "0.3.0dev1"
 description = "Library containing the core modules for the kingdom-python-server"
 authors = ["William Abreu <william@t10.digital>"]
 license = "MIT License"
