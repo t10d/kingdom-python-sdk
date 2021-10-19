@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from kingdom_sdk.domain.model.exception import KingdomError
+from kingdom_sdk.domain.exception import KingdomError
 from kingdom_sdk.utils import time
 
 
