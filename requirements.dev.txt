@@ -28,6 +28,7 @@ pydocstyle==6.1.1; python_version >= "3.6"
 pyflakes==2.4.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pyparsing==2.4.7; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.6"
 pytest==6.2.5; python_version >= "3.6"
+pytz==2021.3
 pyyaml==6.0; python_version >= "3.6" and python_full_version >= "3.6.1"
 regex==2021.10.8; python_full_version >= "3.6.2"
 six==1.16.0; python_full_version >= "3.6.1"
@@ -35,5 +36,6 @@ snowballstemmer==2.1.0; python_version >= "3.6"
 sqlalchemy==1.4.25; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 toml==0.10.2; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")
 tomli==1.2.1; python_version >= "3.6" and python_full_version >= "3.6.2"
+types-pytz==2021.3.0
 typing-extensions==3.10.0.2
 virtualenv==20.8.1; python_full_version >= "3.6.1"
