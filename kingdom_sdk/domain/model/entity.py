@@ -86,6 +86,13 @@ class Entity(ABC):
         self._version += 1
         self._updated_at = time.generate_now()
 
+    def discard(self) -> None:
+        """By convention, isn't necessary delete an object, only mark it as
+        discarded.
+        """
+        self._check_not_discarded()
+        self._is_discarded = True
+
 
 class EntityDiscardedError(KingdomError):
     def __init__(self, message: str):
