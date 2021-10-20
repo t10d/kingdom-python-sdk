@@ -16,6 +16,9 @@ class Entity(ABC):
     Args:
         id: Global unique identifier.
         version: Value used to handle optmistic concurrency.
+        is_discarded: Flag used by the no-deletion convention.
+        registered_at: Timestamp when the entity had created.
+        updated_at: Timestamp when the last modification had done.
     """
 
     _id: UUID
@@ -29,13 +32,14 @@ class Entity(ABC):
         id: UUID,  # noqa
         version: int,
         is_discarded: bool,
-        created_at: datetime,
+        registered_at: datetime,
+        updated_at: datetime,
     ):
         self._id = id
         self._version = version
         self._is_discarded = is_discarded
-        self._registered_at = created_at
-        self._updated_at = created_at
+        self._registered_at = registered_at
+        self._updated_at = updated_at
 
     def _check_not_discarded(self) -> None:
         if self.is_discarded:
