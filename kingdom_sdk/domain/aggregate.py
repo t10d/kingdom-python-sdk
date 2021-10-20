@@ -1,12 +1,24 @@
 from abc import ABC
-from typing import Iterable
+from typing import List
 
 from kingdom_sdk.domain.entity import Entity
 from kingdom_sdk.domain.event import Event
 
 
 class Aggregate(Entity, ABC):
-    _events: Iterable[Event]
+    _events: List[Event]
+
+    def add_events(self, *events: Event) -> None:
+        self._check_not_discarded()
+        self._events.extend(events)
+
+    @property
+    def has_events(self) -> bool:
+        return len(self._events) > 0
+
+    @property
+    def next_event(self) -> Event:
+        return self._events.pop(0)
 
 
 class RootAggregate(Aggregate, ABC):
