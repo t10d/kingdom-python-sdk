@@ -42,6 +42,7 @@ class Entity(ABC):
         self._updated_at = updated_at
 
     def _check_not_discarded(self) -> None:
+        """Call this method before every update action."""
         if self.is_discarded:
             classname = self.__class__.__name__
             raise EntityDiscardedError(f"{classname} object is discarded")
