@@ -6,6 +6,8 @@ from kingdom_sdk.domain.event import Event
 
 
 class Aggregate(Entity, ABC):
+    """Base class for aggregates."""
+
     _events: List[Event]
 
     def add_events(self, *events: Event) -> None:
@@ -22,4 +24,7 @@ class Aggregate(Entity, ABC):
 
 
 class RootAggregate(Aggregate, ABC):
-    pass
+    """Base class for root aggregates.
+
+    There's only one root aggregate for each bounded context.
+    """
