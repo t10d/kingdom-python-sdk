@@ -2,7 +2,7 @@ from abc import ABC
 from typing import List
 
 from kingdom_sdk.domain.entity import Entity
-from kingdom_sdk.domain.event import Event
+from kingdom_sdk.domain.message import Event
 
 
 class Aggregate(Entity, ABC):
