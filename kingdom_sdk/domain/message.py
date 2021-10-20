@@ -7,11 +7,12 @@ from importlib import import_module
 from typing import Any, Dict
 from uuid import UUID
 
+from kingdom_sdk.domain.value_object import ValueObject
 from kingdom_sdk.utils import time
 
 
 @dataclass(frozen=True)
-class Message(ABC):
+class Message(ValueObject, ABC):
     """Base class for all commands and messages.
 
     Messages are value objects, so they are equality comparable.
