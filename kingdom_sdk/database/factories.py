@@ -1,15 +1,14 @@
 from uuid import uuid4
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, MetaData, Table
+from sqlalchemy import Boolean, Column, DateTime, Integer, Table
 from sqlalchemy.dialects.postgresql import UUID
 
+from kingdom_sdk.database.types import TableFactory_T
 from kingdom_sdk.utils import time
 
 
-def create_entity_table(
-    name: str, metadata: MetaData, *columns: Column
-) -> Table:
-    return Table(
+def entity_table_factory(name: str, *columns: Column) -> TableFactory_T:
+    return lambda metadata: Table(
         name,
         metadata,
         Column("id", UUID(as_uuid=True), primary_key=True, default=uuid4),
@@ -31,13 +30,11 @@ def create_entity_table(
     )
 
 
-def create_aggregate_table(
-    name: str, metadata: MetaData, *columns: Column
-) -> Table:
-    return create_entity_table(name, metadata, *columns)
+def aggregate_table_factory(name: str, *columns: Column) -> TableFactory_T:
+    return entity_table_factory(name, *columns)
 
 
-def create_root_aggregate_table(
-    name: str, metadata: MetaData, *columns: Column
-) -> Table:
-    return create_aggregate_table(name, metadata, *columns)
+def root_aggregate_table_factory(
+    name: str, *columns: Column
+) -> TableFactory_T:
+    return aggregate_table_factory(name, *columns)
