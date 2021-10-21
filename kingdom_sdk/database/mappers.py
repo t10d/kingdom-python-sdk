@@ -13,12 +13,8 @@ def entity_mapper(
     mapper(
         entity,
         table,
+        column_prefix="_",
         properties={
-            "_id": table.c.id,  # noqa
-            "_version": table.c.version,  # noqa
-            "_is_discarded": table.c.is_discarded,  # noqa
-            "_registered_at": table.c.registered_at,  # noqa
-            "_updated_at": table.c.updated_at,  # noqa
             **properties,
         },
     )
