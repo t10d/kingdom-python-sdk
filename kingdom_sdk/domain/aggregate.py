@@ -22,6 +22,10 @@ class Aggregate(Entity, ABC):
     def next_event(self) -> Event:
         return self._events.pop(0)
 
+    @property
+    def events(self) -> List[Event]:
+        return self._events
+
 
 class RootAggregate(Aggregate, ABC):
     """Base class for root aggregates.
