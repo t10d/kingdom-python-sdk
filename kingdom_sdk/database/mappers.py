@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Type
 
 from sqlalchemy import Table
 from sqlalchemy.orm import mapper
@@ -7,7 +7,9 @@ from kingdom_sdk.domain.aggregate import Aggregate, RootAggregate
 from kingdom_sdk.domain.entity import Entity
 
 
-def entity_mapper(entity: Entity, table: Table, **properties: Any) -> None:
+def entity_mapper(
+    entity: Type[Entity], table: Table, **properties: Any
+) -> None:
     mapper(
         entity,
         table,
@@ -23,12 +25,12 @@ def entity_mapper(entity: Entity, table: Table, **properties: Any) -> None:
 
 
 def aggregate_mapper(
-    aggregate: Aggregate, table: Table, **properties: Any
+    aggregate: Type[Aggregate], table: Table, **properties: Any
 ) -> None:
     entity_mapper(aggregate, table, **properties)
 
 
 def root_aggregate_mapper(
-    aggregate: RootAggregate, table: Table, **properties: Any
+    aggregate: Type[RootAggregate], table: Table, **properties: Any
 ) -> None:
     aggregate_mapper(aggregate, table, **properties)
