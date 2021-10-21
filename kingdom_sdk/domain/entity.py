@@ -47,11 +47,11 @@ class Entity(ABC):
             classname = self.__class__.__name__
             raise EntityDiscardedError(f"{classname} object is discarded")
 
-    def _base_representation(self, identifier: str, **kwargs: str) -> str:
+    def _base_repr(self, identifier: str, **kwargs: str) -> str:
         """Use this method in the __repr__ implementation.
 
         >>> def __repr__(...) -> str:
-        ...     return self._base_representation(...)
+        ...     return self._base_repr(...)
         """
         pairs = ", ".join([f"{key}={value}" for key, value in kwargs.items()])
         return "{prefix}<{classname} '{identifier}'{extra}>".format(
