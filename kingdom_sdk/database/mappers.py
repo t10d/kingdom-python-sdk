@@ -14,9 +14,7 @@ def entity_mapper(
         entity,
         table,
         column_prefix="_",
-        properties={
-            **properties,
-        },
+        **properties,
     )
 
 
