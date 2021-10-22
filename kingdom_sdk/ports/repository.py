@@ -6,23 +6,14 @@ from kingdom_sdk.domain.aggregate import Aggregate
 
 
 class AbstractRepository(ABC):
+    @abstractmethod
     def add(self, aggregate: Aggregate) -> None:
-        return self._add(aggregate)
+        raise NotImplementedError
 
+    @abstractmethod
     def list(self) -> List[Aggregate]:
-        return self._list()
+        raise NotImplementedError
 
+    @abstractmethod
     def get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
-        return self._get(id)
-
-    @abstractmethod
-    def _add(self, aggregate: Aggregate) -> None:
-        raise NotImplementedError
-
-    @abstractmethod
-    def _list(self) -> List[Aggregate]:
-        raise NotImplementedError
-
-    @abstractmethod
-    def _get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
         raise NotImplementedError
