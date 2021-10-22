@@ -20,6 +20,15 @@ DEFAULT_SESSION_FACTORY = sessionmaker(
 
 
 class BaseUnitOfWork(AbstractUnitOfWork, ABC):
+    """Generic Unit of Work.
+
+    You only need to extend it and annotate the repositories with the full
+    import path.
+
+    >>> class MyUnitOfWork(BaseUnitOfWork):
+    ...     repository: ...
+    """
+
     _errors: List[Any]
     _session_factory: sessionmaker
     _session: Session
