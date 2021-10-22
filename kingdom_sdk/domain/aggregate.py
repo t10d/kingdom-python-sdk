@@ -19,7 +19,7 @@ class Aggregate(Entity, ABC):
         is_discarded: bool,
         registered_at: datetime,
         updated_at: datetime,
-    ):
+    ) -> None:
         super().__init__(id, version, is_discarded, registered_at, updated_at)
         self._events = []
 

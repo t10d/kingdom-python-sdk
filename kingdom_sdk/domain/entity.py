@@ -34,7 +34,7 @@ class Entity(ABC):
         is_discarded: bool,
         registered_at: datetime,
         updated_at: datetime,
-    ):
+    ) -> None:
         self._id = id
         self._version = version
         self._is_discarded = is_discarded
@@ -100,5 +100,5 @@ class Entity(ABC):
 
 
 class EntityDiscardedError(KingdomError):
-    def __init__(self, message: str):
+    def __init__(self, message: str) -> None:
         super().__init__(message, "ENTITY_DISCARDED_ERROR")
