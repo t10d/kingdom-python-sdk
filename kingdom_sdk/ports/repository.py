@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
+from kingdom_sdk.database.types import PrimaryKey_T
 from kingdom_sdk.domain.aggregate import Aggregate
-from kingdom_sdk.ports.types import PrimaryKey_T
 
 
 class AbstractRepository(ABC):

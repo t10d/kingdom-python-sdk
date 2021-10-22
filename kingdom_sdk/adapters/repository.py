@@ -5,9 +5,9 @@ from typing import List, Optional, Set, Type
 
 from sqlalchemy.orm import Session
 
+from kingdom_sdk.database.types import PrimaryKey_T
 from kingdom_sdk.domain.aggregate import Aggregate
 from kingdom_sdk.ports.repository import AbstractRepository
-from kingdom_sdk.ports.types import PrimaryKey_T
 
 
 class BaseRepository(AbstractRepository, ABC):
