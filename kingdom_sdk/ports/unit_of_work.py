@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Generator
 
 
 class AbstractUnitOfWork(ABC):
     def __enter__(self) -> AbstractUnitOfWork:
-        return self._with_context()
+        return self
 
     def __exit__(self, *args: Any) -> None:
         self.rollback()
@@ -18,13 +18,13 @@ class AbstractUnitOfWork(ABC):
         return self._rollback()
 
     @abstractmethod
-    def _with_context(self) -> AbstractUnitOfWork:
-        raise NotImplementedError
-
-    @abstractmethod
     def _commit(self) -> None:
         raise NotImplementedError
 
     @abstractmethod
     def _rollback(self) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def collect_new_events(self) -> Generator:
         raise NotImplementedError
