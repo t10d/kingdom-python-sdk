@@ -2,9 +2,9 @@ from datetime import datetime
 
 import pytz
 
-from kingdom_sdk.config import get_timezone_region
+from kingdom_sdk import config
 
 
 def generate_now() -> datetime:
-    tz = pytz.timezone(get_timezone_region())
+    tz = pytz.timezone(config.get_timezone_region())
     return datetime.now(tz)
