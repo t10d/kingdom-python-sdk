@@ -95,7 +95,6 @@ class Entity(ABC):
         """By convention, isn't necessary delete an object, only mark it as
         discarded.
         """
-        self._check_not_discarded()
         self._is_discarded = True
 
 
