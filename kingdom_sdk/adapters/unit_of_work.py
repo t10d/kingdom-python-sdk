@@ -58,9 +58,9 @@ class BaseUnitOfWork(AbstractUnitOfWork, ABC):
         dirty: Set[Aggregate] = set()
 
         for field_name, _ in self._repositories:
-            field = self.__dict__[field_name]
-            if hasattr(field, "_seen"):
-                dirty = dirty.union(field._seen)  # noqa
+            repository = self.__dict__[field_name]
+            if hasattr(repository, "_seen"):
+                dirty = dirty.union(repository._seen)  # noqa
 
         for aggregate in dirty:
             while aggregate.has_events:
