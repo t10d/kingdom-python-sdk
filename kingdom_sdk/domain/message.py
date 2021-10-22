@@ -3,12 +3,11 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import asdict, dataclass
 from datetime import datetime
-from importlib import import_module
 from typing import Any, Dict
 from uuid import UUID
 
 from kingdom_sdk.domain.value_object import ValueObject
-from kingdom_sdk.utils import time
+from kingdom_sdk.utils import loader, time
 
 
 @dataclass(frozen=True)
@@ -53,8 +52,7 @@ class PersistentMessage:
     data: Dict[str, Any]
 
     def load_object(self) -> Message:
-        module = import_module(self.module)
-        cls = getattr(module, self.classname)
+        cls = loader.object_from_module(self.module, self.classname)
         return cls(**self.data)  # type: ignore
 
 
