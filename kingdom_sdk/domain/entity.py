@@ -73,6 +73,11 @@ class Entity(ABC):
     def __hash__(self) -> int:
         raise NotImplementedError
 
+    @classmethod
+    @abstractmethod
+    def create(cls, **kwargs: Any) -> Entity:
+        raise NotImplementedError
+
     @property
     def id(self) -> UUID:
         return self._id
