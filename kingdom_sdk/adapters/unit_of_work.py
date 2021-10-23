@@ -41,7 +41,7 @@ class BaseUnitOfWork(AbstractUnitOfWork, ABC):
 
     def __enter__(self) -> AbstractUnitOfWork:
         self._session = self._session_factory()
-        self._initilize_repositories(self._session)
+        self._initialize_repositories(self._session)
         return super().__enter__()
 
     def __exit__(self, *args: Any) -> None:
@@ -66,7 +66,7 @@ class BaseUnitOfWork(AbstractUnitOfWork, ABC):
             while aggregate.has_events:
                 yield aggregate.next_event
 
-    def _initilize_repositories(self, session: Session) -> None:
+    def _initialize_repositories(self, session: Session) -> None:
         for field_name, repository in self._repositories:
             self.__dict__[field_name] = repository(session)
 
