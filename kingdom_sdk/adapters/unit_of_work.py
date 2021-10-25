@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Any, Generator, List, Set, Tuple
+from typing import Any, Generator, Iterator, List, Set, Tuple
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -71,7 +71,7 @@ class BaseUnitOfWork(AbstractUnitOfWork, ABC):
             self.__dict__[field_name] = repository(session)
 
     @property
-    def _repositories(self) -> Generator[Tuple[str, Any], Any, None]:
+    def _repositories(self) -> Iterator[Tuple[str, Any]]:
         return (
             (field, module)
             for field, module in self.__annotations__.items()
