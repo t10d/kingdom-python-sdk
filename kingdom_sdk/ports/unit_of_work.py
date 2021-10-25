@@ -26,5 +26,9 @@ class AbstractUnitOfWork(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def execute_native_sql(self, statement: str, **params: Any) -> Any:
+        raise NotImplementedError
+
+    @abstractmethod
     def collect_new_events(self) -> Generator:
         raise NotImplementedError
