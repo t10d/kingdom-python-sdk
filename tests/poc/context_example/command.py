@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+from kingdom_sdk.domain.message import Command
+from kingdom_sdk.utils import time
+
+
+@dataclass(frozen=True)
+class CreateExampleAggregate(Command):
+    value: float
+    name: str
+
+    @classmethod
+    def create(cls, **kwargs: Any) -> CreateExampleAggregate:
+        """Use this insted the constructor.
+
+        Keyword Args:
+            value (float): ...
+            name (str): ...
+        """
+        return cls(
+            raised_at=time.generate_now(),
+            type="Command",
+            kind=cls.__name__,
+            delay=0,
+            value=kwargs["value"],
+            name=kwargs["name"],
+        )
