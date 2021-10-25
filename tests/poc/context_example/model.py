@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 from uuid import uuid4
 
 from kingdom_sdk.domain.aggregate import Aggregate
 from kingdom_sdk.domain.entity import Entity
+from kingdom_sdk.domain.value_object import ValueObject
 from kingdom_sdk.utils import time
 
 
@@ -94,7 +96,7 @@ class ExampleAggregate(Aggregate):
 
     @classmethod
     def create(cls, **kwargs: Any) -> ExampleAggregate:
-        """Use this instead the constructor..
+        """Use this instead the constructor.
 
         Keyword Args:
             value (float): ...
@@ -110,3 +112,17 @@ class ExampleAggregate(Aggregate):
             value=kwargs["value"],
             reference=kwargs["reference"],
         )
+
+
+@dataclass(frozen=True)
+class ExampleVO(ValueObject):
+    field: str
+
+    @classmethod
+    def create(cls, **kwargs: Any) -> ExampleVO:
+        """Use this instead the constructor.
+
+        Keyword Args:
+            field (str): ...
+        """
+        return cls(field=kwargs["field"])
