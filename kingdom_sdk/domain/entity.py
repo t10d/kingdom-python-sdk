@@ -90,9 +90,20 @@ class Entity(ABC):
     def is_discarded(self) -> bool:
         return self._is_discarded
 
+    @property
+    def registered_at(self) -> datetime:
+        return self._registered_at
+
+    @property
+    def updated_at(self) -> datetime:
+        return self._updated_at
+
     def update(self) -> None:
         """Remember to call this method before commiting a change."""
         self._check_not_discarded()
+        self._update()
+
+    def _update(self) -> None:
         self._version += 1
         self._updated_at = time.generate_now()
 
@@ -101,6 +112,7 @@ class Entity(ABC):
         discarded.
         """
         self._is_discarded = True
+        self._update()
 
 
 class EntityDiscardedError(KingdomError):
