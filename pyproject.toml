@@ -23,6 +23,10 @@ pyclean = "^2.0.0"
 toml = "^0.10.2"
 pytest = "^6.2.5"
 types-pytz = "^2021.3.0"
+alembic = "^1.7.4"
+psycopg2-binary = "^2.9.1"
+python-dotenv = "^0.19.1"
+sql-formatter = "^0.6.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
