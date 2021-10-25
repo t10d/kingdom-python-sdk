@@ -2,6 +2,20 @@
 
 Library containing the core modules for the kingdom-python-server.
 
+## Test
+
+To test the database package, you need do it manually, running a migration. Make sure the databse is configured before.
+
+```bash
+cd tests/poc/
+alembic revision --autogenerate
+alembic upgrade head
+```
+
+The rest, run pytest.
+
+Don't commit the generated revision.
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `kingdom-core`.
