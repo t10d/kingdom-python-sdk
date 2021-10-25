@@ -53,6 +53,14 @@ class ExampleEntity(Entity):
             name=kwargs["name"],
         )
 
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @name.setter
+    def name(self, value: str) -> None:
+        self._name = value
+
 
 class ExampleAggregate(Aggregate):
     _value: float
