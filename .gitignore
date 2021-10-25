@@ -139,3 +139,6 @@ Thumbs.db
 # IDE
 .idea/
 .vscode/
+
+# Don't commit the alembic revision, it's part of test generate them.
+tests/poc/migration_example/versions/*.py
