@@ -5,6 +5,7 @@ import pytest
 from tests.poc.context_example.command import CreateExampleAggregate
 from tests.poc.context_example.event import ExampleAggregateCreated
 from tests.poc.context_example.model import ExampleEntity, ExampleVO
+from tests.poc.context_example.unit_of_work import PocUnitOfWork
 
 
 @pytest.fixture
@@ -25,3 +26,8 @@ def raised_command():
 @pytest.fixture
 def raised_event():
     return ExampleAggregateCreated.create(id=uuid4())
+
+
+@pytest.fixture
+def uow():
+    return PocUnitOfWork()
