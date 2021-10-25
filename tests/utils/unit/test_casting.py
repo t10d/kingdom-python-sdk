@@ -40,3 +40,17 @@ from kingdom_sdk.utils import casting
 )
 def test_cast_bool_from_string(string, expected_result):
     assert casting.bool_from_string(string) == expected_result
+
+
+@pytest.mark.parametrize(
+    "module, expected_result",
+    [
+        ("", ("", "")),
+        ("A", ("", "A")),
+        ("a.B", ("a", "B")),
+        ("a.b.C", ("a.b", "C")),
+        ("a_a_a.b_b_b.C_C_C", ("a_a_a.b_b_b", "C_C_C")),
+    ],
+)
+def test_split_module_class(module, expected_result):
+    assert casting.split_module_class(module) == expected_result
