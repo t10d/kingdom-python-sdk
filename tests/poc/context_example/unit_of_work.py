@@ -3,4 +3,4 @@ from tests.poc.context_example import repository
 
 
 class PocUnitOfWork(BaseUnitOfWork):
-    repository = repository.PocRepository
+    repository: repository.PocRepository
