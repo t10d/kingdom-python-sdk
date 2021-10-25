@@ -1,11 +1,14 @@
+from typing import Any
+
 from sqlalchemy import Column, Float, ForeignKey, MetaData, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import events, relationship
 
 from kingdom_sdk.database.factories import (
     aggregate_table_factory,
     entity_table_factory,
 )
 from kingdom_sdk.database.mappers import aggregate_mapper, entity_mapper
+from kingdom_sdk.domain.aggregate import Aggregate
 from tests.poc.context_example import model
 
 examples_entity = entity_table_factory(
@@ -33,3 +36,8 @@ def start_mappers(metadata: MetaData) -> None:
             )
         },
     )
+
+
+@events.event.listens_for(model.ExampleAggregate, "load")
+def load_event_list(aggregate: Aggregate, *_: Any) -> None:
+    aggregate._events = []
