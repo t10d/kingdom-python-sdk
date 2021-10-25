@@ -113,6 +113,14 @@ class ExampleAggregate(Aggregate):
             reference=kwargs["reference"],
         )
 
+    @property
+    def value(self) -> float:
+        return self._value
+
+    @property
+    def reference(self) -> ExampleEntity:
+        return self._reference
+
 
 @dataclass(frozen=True)
 class ExampleVO(ValueObject):
