@@ -11,7 +11,7 @@ except:  # noqa
 
 DEFAULT_TIMEZONE_REGION = "America/Sao_Paulo"
 DEFAULT_DEBUG = "False"
-DEFAULT_DATABASE_URL = "postgresql://user:password@localhost:5432/databse"
+DEFAULT_DATABASE_URL = "postgresql://user:password@localhost:5432/database"
 
 
 def get_timezone_region() -> str:
