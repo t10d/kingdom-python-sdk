@@ -1,6 +1,7 @@
 from typing import Any, Dict, Tuple
 
 from jinjasql import JinjaSql
+from sqlalchemy.engine import CursorResult
 
 from kingdom_sdk.ports.query import (
     AbstractDQLInterface,
@@ -14,7 +15,7 @@ class JinjaTemplateSqlMixin(AbstractTemplateSQLMixin):
 
     _sql_file_path: str
 
-    def build_statement(self, **params: Any) -> Tuple[str, Dict]:
+    def _build_statement(self, **params: Any) -> Tuple[str, Dict]:
         with open(self._sql_file_path) as sql_file:
             file_content = sql_file.read()
         query, bind_params = self._jinja.prepare_query(file_content, params)
@@ -23,14 +24,14 @@ class JinjaTemplateSqlMixin(AbstractTemplateSQLMixin):
 
 class DQLInterface(AbstractDQLInterface, JinjaTemplateSqlMixin):
     def __init__(self, sql_file_path: str) -> None:
-        self._sql_file = sql_file_path
+        self._sql_file_path = sql_file_path
 
     def execute(
         self, uow: AbstractUnitOfWork, commit: bool = False, **params: Any
-    ) -> Dict:
-        query, bind_params = self.build_statement(**params)
+    ) -> CursorResult:
+        query, bind_params = self._build_statement(**params)
         with uow:
             result = uow.execute_native_sql(query, **bind_params)
             if commit:
                 uow.commit()
-            return result  # type: ignore
+            return result

@@ -6,13 +6,13 @@ from kingdom_sdk.ports.unit_of_work import AbstractUnitOfWork
 
 class AbstractRawSQLMixin(ABC):
     @abstractmethod
-    def build_statement(self) -> str:
+    def _build_statement(self) -> str:
         raise NotImplementedError
 
 
 class AbstractTemplateSQLMixin(ABC):
     @abstractmethod
-    def build_statement(self, **params: Any) -> Tuple[str, Dict]:
+    def _build_statement(self, **params: Any) -> Tuple[str, Dict]:
         raise NotImplementedError
 
 
