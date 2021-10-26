@@ -2,6 +2,13 @@ import os
 
 from kingdom_sdk.utils import casting
 
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except:  # noqa
+    pass
+
 DEFAULT_TIMEZONE_REGION = "America/Sao_Paulo"
 DEFAULT_DEBUG = "False"
 DEFAULT_DATABASE_URL = "postgresql://user:password@localhost:5432/databse"

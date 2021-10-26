@@ -2,6 +2,7 @@ from uuid import uuid4
 
 import pytest
 
+from tests.poc.context_example.bootstrap import bootstrap
 from tests.poc.context_example.command import CreateExampleAggregate
 from tests.poc.context_example.event import ExampleAggregateCreated
 from tests.poc.context_example.model import ExampleEntity, ExampleVO
@@ -28,6 +29,7 @@ def raised_event():
     return ExampleAggregateCreated.create(id=uuid4())
 
 
-@pytest.fixture
+@pytest.fixture(scope="session", autouse=True)
 def uow():
+    bootstrap()
     return PocUnitOfWork()

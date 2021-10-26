@@ -14,13 +14,6 @@ def test_aggrate_save(uow, raised_command):
         uow.repository.add(aggregate)
         uow.commit()
 
-    with uow:
-        result: ExampleAggregate = uow.repository.get(aggregate.id)
-
-    assert result
-    assert result == aggregate
-    assert result.reference == entity
-
 
 def test_aggregate_list(uow):
     with uow:
