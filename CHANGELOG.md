@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## UNRELEASED
 ### Added
+- Added base implementation of CQRS Pattern.
 - Added base implementation of Unit of Work Pattern .
 - Added base implementation of Repository Pattern .
 - Added higher-order functions to database mappers and factories.
