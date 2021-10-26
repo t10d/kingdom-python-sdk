@@ -1,7 +1,10 @@
 import os
 import sys
+from pathlib import Path
 
-sys.path.insert(0, os.getcwd())
+# Fix the path to include repository root.
+root = Path(os.getcwd()).parent.parent
+sys.path.insert(0, root.as_posix())
 
 from logging.config import fileConfig
 
