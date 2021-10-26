@@ -49,6 +49,8 @@ jobs:
         run: make mypy
 
       - name: Prepare test database
+        env:
+          PYTHONPATH: .
         run: |
           cd tests/poc/
           alembic revision --autogenerate
