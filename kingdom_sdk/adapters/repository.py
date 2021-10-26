@@ -11,13 +11,14 @@ from kingdom_sdk.ports.repository import AbstractRepository
 class BaseRepository(AbstractRepository, ABC):
     """Generic repository.
 
-    You only need to extend it and override the static attribute _model.
+    You only need to extend it and override the static attribute __model__.
 
     >>> class MyRepositoy(BaseRepository):
-    ...     _model = ...
+    ...     __model__ = ...
     """
 
-    _model: Type[Aggregate]
+    __model__: Type[Aggregate]
+
     _session: Session
     _seen: Set[Aggregate]
 
@@ -27,7 +28,7 @@ class BaseRepository(AbstractRepository, ABC):
 
     @property
     def query(self) -> Query:
-        return self._session.query(self._model)
+        return self._session.query(self.__model__)
 
     def add(self, aggregate: Aggregate) -> None:
         self._seen.add(aggregate)
@@ -44,6 +45,6 @@ class BaseRepository(AbstractRepository, ABC):
 
     def _get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
         return self.query.filter(  # type: ignore
-            self._model._id == id,  # noqa
-            self._model._is_discarded._is(False),  # type: ignore  # noqa
+            self.__model__._id == id,  # noqa
+            self.__model__._is_discarded._is(False),  # type: ignore  # noqa
         ).first()
