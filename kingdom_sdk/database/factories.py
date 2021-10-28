@@ -38,3 +38,7 @@ def root_aggregate_table_factory(
     name: str, *columns: Column
 ) -> TableFactory_T:
     return aggregate_table_factory(name, *columns)
+
+
+def relationship_table_factory(name: str, *columns: Column) -> TableFactory_T:
+    return lambda metadata: Table(name, metadata, *columns)
