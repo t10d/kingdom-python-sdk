@@ -12,7 +12,7 @@ alembic revision --autogenerate
 alembic upgrade head
 ```
 
-The rest, run pytest.
+The rest, run `pytest`.
 
 Don't commit the generated revision.
 
