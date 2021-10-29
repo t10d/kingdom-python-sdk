@@ -1,3 +1,4 @@
+import os
 from uuid import uuid4
 
 import pytest
@@ -33,3 +34,8 @@ def raised_event():
 def uow():
     bootstrap()
     return PocUnitOfWork()
+
+
+@pytest.fixture
+def query_path(poc_dir):
+    return os.path.join(poc_dir, "context_example/queries/query.sql")

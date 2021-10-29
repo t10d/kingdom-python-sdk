@@ -18,8 +18,3 @@ def src_dir():
 @pytest.fixture
 def poc_dir(base_dir):
     return os.path.join(base_dir, "tests/poc/")
-
-
-@pytest.fixture
-def query_path(poc_dir):
-    return os.path.join(poc_dir, "context_example/queries/query.sql")
