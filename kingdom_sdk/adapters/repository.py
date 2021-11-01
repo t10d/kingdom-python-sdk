@@ -46,5 +46,5 @@ class BaseRepository(AbstractRepository, ABC):
     def _get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
         return self.query.filter(  # type: ignore
             self.__model__._id == id,  # noqa
-            self.__model__._is_discarded == False,  # type: ignore  # noqa
+            self.__model__._is_discarded == False,  # noqa
         ).first()
