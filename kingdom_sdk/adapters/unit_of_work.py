@@ -19,12 +19,12 @@ DEFAULT_SESSION_FACTORY = sessionmaker(
 )
 
 
-class BaseUnitOfWork(AbstractUnitOfWork, ABC):
-    """Generic Unit of Work.
+class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
+    """Generic SQLAlchemy Unit of Work.
 
     You only need to extend it and annotate the repositories types.
 
-    >>> class MyUnitOfWork(BaseUnitOfWork):
+    >>> class MyUnitOfWork(SQLAlchemyUnitOfWork):
     ...     repository: ...
     """
 

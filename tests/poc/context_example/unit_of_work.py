@@ -1,6 +1,6 @@
-from kingdom_sdk.adapters.unit_of_work import BaseUnitOfWork
+from kingdom_sdk.adapters.unit_of_work import SQLAlchemyUnitOfWork
 from tests.poc.context_example import repository
 
 
-class PocUnitOfWork(BaseUnitOfWork):
+class PocUnitOfWork(SQLAlchemyUnitOfWork):
     repository: repository.PocRepository

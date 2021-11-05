@@ -8,12 +8,12 @@ from kingdom_sdk.domain.aggregate import Aggregate
 from kingdom_sdk.ports.repository import AbstractRepository
 
 
-class BaseRepository(AbstractRepository, ABC):
-    """Generic repository.
+class SQLAlchemyRepository(AbstractRepository, ABC):
+    """Generic SQLAlchemy repository.
 
     You only need to extend it and override the static attribute __model__.
 
-    >>> class MyRepositoy(BaseRepository):
+    >>> class MyRepositoy(SQLAlchemyRepository):
     ...     __model__ = ...
     """
 
