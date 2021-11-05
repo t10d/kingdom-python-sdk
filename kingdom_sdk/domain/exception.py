@@ -6,6 +6,7 @@ class KingdomError(Exception):
     _code: str
 
     def __init__(self, message: str, code: str) -> None:
+        super().__init__(message)
         self._message = message
         self._code = code
 
