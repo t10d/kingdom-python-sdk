@@ -4,7 +4,7 @@ Library containing the core modules for the kingdom-python-server.
 
 ## Test
 
-To test the database package, you need do it manually, running a migration. Make sure the databse is configured before.
+To test the database package, you need do it manually, running a migration. Make sure the database is configured before.
 
 ```bash
 cd tests/poc/
