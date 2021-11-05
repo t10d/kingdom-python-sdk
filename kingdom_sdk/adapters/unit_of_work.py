@@ -53,7 +53,7 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
     def _rollback(self) -> None:
         self._session.rollback()
 
-    def execute_native_sql(self, statement: str, **params: Any) -> Any:
+    def execute_native_statement(self, statement: str, **params: Any) -> Any:
         return self._session.execute(statement, params)
 
     def collect_new_events(self) -> Generator:
