@@ -26,7 +26,7 @@ class AbstractUnitOfWork(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def execute_native_sql(self, statement: str, **params: Any) -> Any:
+    def execute_native_statement(self, statement: str, **params: Any) -> Any:
         raise NotImplementedError
 
     @abstractmethod

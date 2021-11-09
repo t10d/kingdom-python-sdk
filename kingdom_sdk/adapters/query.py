@@ -31,7 +31,7 @@ class DQLInterface(AbstractDQLInterface, JinjaTemplateSqlMixin):
     ) -> CursorResult:
         query, bind_params = self._build_statement(**params)
         with uow:
-            result = uow.execute_native_sql(query, **bind_params)
+            result = uow.execute_native_statement(query, **bind_params)
             if commit:
                 uow.commit()
             return result
