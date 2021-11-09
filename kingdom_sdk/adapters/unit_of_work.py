@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from kingdom_sdk import config
 from kingdom_sdk.domain.aggregate import Aggregate
+from kingdom_sdk.domain.exception import KingdomError
 from kingdom_sdk.ports.unit_of_work import AbstractUnitOfWork
 
 DEFAULT_SESSION_FACTORY = sessionmaker(
@@ -60,7 +61,11 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
         dirty: Set[Aggregate] = set()
 
         for field_name, _ in self._repositories:
-            repository = self.__dict__[field_name]
+            try:
+                repository = self.__dict__[field_name]
+            except KeyError as error:
+                raise RepositoryNotIntializedError(str(error))
+
             if hasattr(repository, "_seen"):
                 dirty = dirty.union(repository._seen)  # noqa
 
@@ -78,4 +83,12 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
             (field, module)
             for field, module in self.__annotations__.items()
             if not field.startswith("_")
+        )
+
+
+class RepositoryNotIntializedError(KingdomError):
+    def __init__(self, repository_name: str) -> None:
+        super().__init__(
+            f"The repository '{repository_name}' haven't been initialized yet",
+            "REPOSITORY_NOT_INITIALIZED_ERROR",
         )
