@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 from typing import Any, AsyncGenerator, Callable, Dict, List, Type
 
@@ -14,7 +16,6 @@ class MessageBus(AbstractMessageBus):
     _uow: AbstractUnitOfWork
     _event_handlers: Dict[Type[Event], List[Callable]]
     _command_handlers: Dict[Type[Command], Callable]
-    _dependencies: Dict[str, Any]
     _queue: List[Message]
 
     def __init__(
@@ -22,13 +23,45 @@ class MessageBus(AbstractMessageBus):
         uow: AbstractUnitOfWork,
         event_handlers: Dict[Type[Event], List[Callable]],
         command_handlers: Dict[Type[Command], Callable],
-        dependencies: Dict[str, Any],
+        queue: List[Message],
     ) -> None:
         self._uow = uow
         self._event_handlers = event_handlers
         self._command_handlers = command_handlers
-        self._dependencies = dependencies
-        self._queue: List[Message] = []
+        self._queue = queue
+
+    @classmethod
+    def create(
+        cls,
+        uow: AbstractUnitOfWork,
+        event_handlers: Dict[Type[Event], List[Callable]],
+        command_handlers: Dict[Type[Command], Callable],
+        dependencies: Dict[str, Any],
+    ) -> MessageBus:
+        """Create a message bus with its handlers dependencies set
+        programmatically.
+
+        Default dependencies do matter and are used on production environments.
+        """
+        command_injected = {
+            command_type: cls._inject_dependencies(
+                command_handler, dependencies
+            )
+            for command_type, command_handler in command_handlers.items()
+        }
+        event_injected = {
+            event_type: [
+                cls._inject_dependencies(handler, dependencies)
+                for handler in event_handlers
+            ]
+            for event_type, event_handlers in event_handlers.items()
+        }
+        return cls(
+            uow=uow,
+            event_handlers=event_injected,
+            command_handlers=command_injected,
+            queue=[],
+        )
 
     async def _handle_event(self, event: Event) -> AsyncGenerator:
         for handler in self._event_handlers[type(event)]:
