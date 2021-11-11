@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any, Dict
@@ -25,6 +25,7 @@ class Message(ValueObject, ABC):
     delay: int
 
 
+@dataclass(frozen=True)
 class Command(Message, ABC):
     """Base domain command.
 
@@ -32,17 +33,17 @@ class Command(Message, ABC):
 
     >>> @dataclass(frozen=True)
     ... class MyCommand(Command):
-    ...     @abstractmethod
-    ...     def create(self, ...) -> MyCommand:
+    ...     @classmethod
+    ...     def create(cls, ...) -> MyCommand:
     ...         ...
     """
 
     @classmethod
-    @abstractmethod
     def create(cls, **kwargs: Any) -> Command:
         raise NotImplementedError
 
 
+@dataclass(frozen=True)
 class Event(Message, ABC):
     """Base domain event.
 
@@ -50,8 +51,8 @@ class Event(Message, ABC):
 
     >>> @dataclass(frozen=True)
     ... class MyEvent(Event):
-    ...     @abstractmethod
-    ...     def create(self, ...) -> MyEvent:
+    ...     @classmethod
+    ...     def create(cls, ...) -> MyEvent:
     ...         ...
 
     Args:
@@ -61,7 +62,6 @@ class Event(Message, ABC):
     raised_by: UUID
 
     @classmethod
-    @abstractmethod
     def create(cls, **kwargs: Any) -> Command:
         raise NotImplementedError
 
