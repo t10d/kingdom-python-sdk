@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from abc import ABC
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -8,8 +11,15 @@ class ValueObject(ABC):
 
     Implement it as a frozen dataclass.
 
-    >>> from dataclasses import dataclass
     >>> @dataclass(frozen=True)
     ... class MyClass(ValueObject):
     ...     field: type
+    ...
+    ...     @classmethod
+    ...     def create(cls, ...) -> MyClass:
+    ...         ...
     """
+
+    @classmethod
+    def create(cls, **kwargs: Any) -> ValueObject:
+        raise NotImplementedError

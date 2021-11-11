@@ -38,10 +38,6 @@ class Command(Message, ABC):
     ...         ...
     """
 
-    @classmethod
-    def create(cls, **kwargs: Any) -> Command:
-        raise NotImplementedError
-
 
 @dataclass(frozen=True)
 class Event(Message, ABC):
@@ -61,23 +57,19 @@ class Event(Message, ABC):
 
     raised_by: UUID
 
-    @classmethod
-    def create(cls, **kwargs: Any) -> Event:
-        raise NotImplementedError
-
 
 @dataclass(frozen=True)
-class PersistentMessage:
+class PersistentMessage(ValueObject):
     module: str
     classname: str
     data: Dict[str, Any]
 
     @classmethod
-    def create(cls, message: Message) -> PersistentMessage:
+    def create(cls, message: Message) -> PersistentMessage:  # type: ignore
         return cls(
-            message.__class__.__module__,
-            message.__class__.__name__,
-            asdict(message),
+            module=message.__class__.__module__,
+            classname=message.__class__.__name__,
+            data=asdict(message),
         )
 
     def load_object(self) -> Message:
