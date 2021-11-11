@@ -27,7 +27,7 @@ def raised_command():
 
 @pytest.fixture
 def raised_event():
-    return ExampleAggregateCreated.create(id=uuid4())
+    return ExampleAggregateCreated.create(id=uuid4(), name="raised")
 
 
 @pytest.fixture(scope="session", autouse=True)

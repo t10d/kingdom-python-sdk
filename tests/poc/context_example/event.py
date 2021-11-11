@@ -10,17 +10,19 @@ from kingdom_sdk.utils import time
 
 @dataclass(frozen=True)
 class ExampleAggregateCreated(Event):
+    name: str
+
     @classmethod
     def create(cls, **kwargs: Any) -> ExampleAggregateCreated:
         """Use this insted the constructor.
 
         Keyword Args:
             id (UUID): ...
+            name (str): ...
         """
         return cls(
             raised_at=time.generate_now(),
-            type="Event",
-            kind=cls.__name__,
             delay=0,
             raised_by=kwargs["id"],
+            name=kwargs["name"],
         )

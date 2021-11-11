@@ -22,8 +22,6 @@ class CreateExampleAggregate(Command):
         """
         return cls(
             raised_at=time.generate_now(),
-            type="Command",
-            kind=cls.__name__,
             delay=0,
             value=kwargs["value"],
             name=kwargs["name"],
