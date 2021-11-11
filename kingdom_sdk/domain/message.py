@@ -62,7 +62,7 @@ class Event(Message, ABC):
     raised_by: UUID
 
     @classmethod
-    def create(cls, **kwargs: Any) -> Command:
+    def create(cls, **kwargs: Any) -> Event:
         raise NotImplementedError
 
 
