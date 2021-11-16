@@ -26,3 +26,14 @@ class CreateExampleAggregate(Command):
             value=kwargs["value"],
             name=kwargs["name"],
         )
+
+
+@dataclass(frozen=True)
+class ExemplifyUnhandlableCommand(Command):
+    @classmethod
+    def create(cls, **kwargs: Any) -> ExemplifyUnhandlableCommand:
+        """Use this insted the constructor."""
+        return cls(
+            raised_at=time.generate_now(),
+            delay=0,
+        )

@@ -9,6 +9,7 @@ from kingdom_sdk.domain.aggregate import Aggregate
 from kingdom_sdk.domain.entity import Entity
 from kingdom_sdk.domain.value_object import ValueObject
 from kingdom_sdk.utils import time
+from tests.poc.context_example.event import ExampleAggregateCreated
 
 
 class ExampleEntity(Entity):
@@ -103,7 +104,7 @@ class ExampleAggregate(Aggregate):
             reference (ExampleEntity): ...
         """
         now = time.generate_now()
-        return cls(
+        new = cls(
             id=uuid4(),
             version=0,
             is_discarded=False,
@@ -112,6 +113,10 @@ class ExampleAggregate(Aggregate):
             value=kwargs["value"],
             reference=kwargs["reference"],
         )
+        new.add_events(
+            ExampleAggregateCreated.create(id=new.id, name=new.reference.name)
+        )
+        return new
 
     @property
     def value(self) -> float:

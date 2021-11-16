@@ -1,12 +1,17 @@
 import os
+from unittest.mock import MagicMock
 from uuid import uuid4
 
 import pytest
 
 import kingdom_sdk
 from kingdom_sdk.adapters.message_broker import RedisMessageBroker
+from kingdom_sdk.adapters.message_bus import MessageBus
 from tests.poc.context_example.bootstrap import bootstrap
-from tests.poc.context_example.command import CreateExampleAggregate
+from tests.poc.context_example.command import (
+    CreateExampleAggregate,
+    ExemplifyUnhandlableCommand,
+)
 from tests.poc.context_example.event import ExampleAggregateCreated
 from tests.poc.context_example.model import (
     ExampleAggregate,
@@ -25,6 +30,16 @@ def uow():
 @pytest.fixture(scope="session")
 def message_broker():
     return RedisMessageBroker()
+
+
+@pytest.fixture(scope="session")
+def message_bus(uow, example_event_handlers, example_command_handlers):
+    return MessageBus.create(
+        uow=uow,
+        event_handlers=example_event_handlers,
+        command_handlers=example_command_handlers,
+        dependencies={},
+    )
 
 
 @pytest.fixture
@@ -68,5 +83,20 @@ def example_command():
 
 
 @pytest.fixture
+def example_unhandlable_command():
+    return ExemplifyUnhandlableCommand.create()
+
+
+@pytest.fixture(scope="session")
+def example_command_handlers():
+    return {CreateExampleAggregate: MagicMock()}
+
+
+@pytest.fixture
 def example_event():
     return ExampleAggregateCreated.create(id=uuid4(), name="raised")
+
+
+@pytest.fixture(scope="session")
+def example_event_handlers():
+    return {ExampleAggregateCreated: [MagicMock(), MagicMock()]}
