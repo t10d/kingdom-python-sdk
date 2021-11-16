@@ -23,7 +23,7 @@ setuptools.setup(
     packages=setuptools.find_packages(".", exclude=["tests", "tests.*"]),
     python_requires=">=3.9",
     keywords="",
-    url="https://github.com/t10d/kingdom-python-core",
+    url="https://github.com/t10d/kingdom-python-sdk",
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",

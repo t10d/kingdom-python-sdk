@@ -1,0 +1,77 @@
+# This workflow will run tests against a Postgres and Redis database on Ubuntu
+# For more information see: https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+
+name: Run Test Suite
+
+on:
+  pull_request:
+    types: [ opened, synchronize, edited ]
+    branches:
+      - main
+      - dev
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: database
+        ports: [ "5432:5432" ]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      redis:
+        image: redis
+        env:
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+        ports: [ "6379:6379" ]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+      - name: Cache pip
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip # This path is specific to Ubuntu
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: pip install -r requirements.dev.txt
+
+      - name: Linting checks
+        run: make black flake8 isort pydocstyle
+
+      - name: Typing checks
+        run: make mypy
+
+      - name: Prepare test database
+        env:
+          PYTHONPATH: .
+        run: |
+          cd tests/poc/
+          alembic revision --autogenerate
+          alembic -x data=true -x test=true upgrade head
+
+      - name: Unit Tests
+        run: |
+          pytest tests/unit --color=yes --showlocals -v
+
+      - name: Integration Tests
+        run: |
+          pytest tests/integration --color=yes --showlocals -v
