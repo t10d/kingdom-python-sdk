@@ -68,11 +68,10 @@ jobs:
           alembic revision --autogenerate
           alembic -x data=true -x test=true upgrade head
 
-      - name: Test Context
+      - name: Unit Tests
         run: |
-          pytest tests/context/unit --color=yes --showlocals -v
-          pytest tests/context/integration --color=yes --showlocals -v
+          pytest tests/unit --color=yes --showlocals -v
 
-      - name: Test Utils
+      - name: Integration Tests
         run: |
-          pytest tests/utils/unit --color=yes --showlocals -v
+          pytest tests/integration --color=yes --showlocals -v
