@@ -117,6 +117,10 @@ class ExampleAggregate(Aggregate):
     def value(self) -> float:
         return self._value
 
+    @value.setter
+    def value(self, value: float) -> None:
+        self._value = value
+
     @property
     def reference(self) -> ExampleEntity:
         return self._reference
