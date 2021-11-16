@@ -3,7 +3,7 @@ import os
 # Define the package's version.
 # - Is used for indexing and distributing the package
 # - Follow the conventions defined by PEP440
-__version__ = "0.3.0dev1"
+__version__ = "0.3.0"
 
 
 def _get_base_dir() -> str:
