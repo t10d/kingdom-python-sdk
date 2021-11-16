@@ -4,6 +4,7 @@ from uuid import uuid4
 import pytest
 
 import kingdom_sdk
+from kingdom_sdk.adapters.message_broker import RedisMessageBroker
 from tests.poc.context_example.bootstrap import bootstrap
 from tests.poc.context_example.command import CreateExampleAggregate
 from tests.poc.context_example.event import ExampleAggregateCreated
@@ -15,10 +16,15 @@ from tests.poc.context_example.model import (
 from tests.poc.context_example.unit_of_work import PocUnitOfWork
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def uow():
     bootstrap()
     return PocUnitOfWork()
+
+
+@pytest.fixture(scope="session")
+def message_broker():
+    return RedisMessageBroker()
 
 
 @pytest.fixture
