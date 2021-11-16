@@ -24,6 +24,10 @@ class AbstractMessageBus(ABC):
     async def handle(self, message: Message) -> List[Warning]:
         raise NotImplementedError
 
+    @abstractmethod
+    def handle_single(self, command: Command) -> Any:
+        raise NotImplementedError
+
     @staticmethod
     def _inject_dependencies(
         handler: Callable, dependencies: Dict[str, Any]

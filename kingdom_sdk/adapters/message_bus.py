@@ -107,6 +107,15 @@ class MessageBus(AbstractMessageBus):
             logger.warning(f"Not awaitable tasks: {self._queue}")
         return warnings
 
+    def handle_single(self, command: Command) -> Any:
+        logger.info("Handling single command %s", command)
+        try:
+            handler = self._command_handlers[type(command)]
+            return handler(command)
+        except Exception as ex:
+            logger.exception("Exception handling command %s: %s", command, ex)
+            raise
+
     @staticmethod
     async def _run(handler: AsyncGenerator) -> List[Any]:
         return [r async for r in handler]
