@@ -1,4 +1,4 @@
-# This workflow will run tests against a Postgres database on Ubuntu
+# This workflow will run tests against a Postgres and Redis database on Ubuntu
 # For more information see: https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
 
 name: Run Test Suite
@@ -23,6 +23,18 @@ jobs:
           POSTGRES_DB: database
         ports: [ "5432:5432" ]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      redis:
+        image: redis
+        env:
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+        ports: [ "6379:6379" ]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
