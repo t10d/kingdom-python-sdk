@@ -87,7 +87,7 @@ class ExampleAggregate(Aggregate):
         return self._base_repr(self._id.hex)
 
     def __eq__(self, other: Any) -> bool:
-        if isinstance(other, ExampleEntity):
+        if isinstance(other, ExampleAggregate):
             return self.id == other.id
         else:
             return False
