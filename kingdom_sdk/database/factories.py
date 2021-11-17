@@ -7,7 +7,9 @@ from kingdom_sdk.database.types import TableFactory_T
 from kingdom_sdk.utils import time
 
 
-def entity_table_factory(name: str, *columns: Column) -> TableFactory_T:
+def entity_table_factory(
+    schema: str, name: str, *columns: Column
+) -> TableFactory_T:
     return lambda metadata: Table(
         name,
         metadata,
@@ -27,18 +29,23 @@ def entity_table_factory(name: str, *columns: Column) -> TableFactory_T:
             default=time.generate_now,
         ),
         *columns,
+        schema=schema,
     )
 
 
-def aggregate_table_factory(name: str, *columns: Column) -> TableFactory_T:
-    return entity_table_factory(name, *columns)
+def aggregate_table_factory(
+    schema: str, name: str, *columns: Column
+) -> TableFactory_T:
+    return entity_table_factory(schema, name, *columns)
 
 
 def root_aggregate_table_factory(
-    name: str, *columns: Column
+    schema: str, name: str, *columns: Column
 ) -> TableFactory_T:
-    return aggregate_table_factory(name, *columns)
+    return aggregate_table_factory(schema, name, *columns)
 
 
-def relationship_table_factory(name: str, *columns: Column) -> TableFactory_T:
-    return lambda metadata: Table(name, metadata, *columns)
+def relationship_table_factory(
+    schema: str, name: str, *columns: Column
+) -> TableFactory_T:
+    return lambda metadata: Table(name, metadata, *columns, schema=schema)

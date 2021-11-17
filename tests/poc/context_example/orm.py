@@ -12,13 +12,16 @@ from kingdom_sdk.domain.aggregate import Aggregate
 from tests.poc.context_example import model
 
 examples_entity = entity_table_factory(
-    "examples_entity", Column("name", String(255), nullable=False)
+    "poc", "examples_entity", Column("name", String(255), nullable=False)
 )
 
 examples_aggregate = aggregate_table_factory(
+    "poc",
     "examples_aggregate",
     Column("value", Float(), nullable=False),
-    Column("reference_id", ForeignKey("examples_entity.id"), nullable=False),
+    Column(
+        "reference_id", ForeignKey("poc.examples_entity.id"), nullable=False
+    ),
 )
 
 
