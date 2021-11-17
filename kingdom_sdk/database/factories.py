@@ -39,12 +39,6 @@ def aggregate_table_factory(
     return entity_table_factory(schema, name, *columns)
 
 
-def root_aggregate_table_factory(
-    schema: str, name: str, *columns: Column
-) -> TableFactory_T:
-    return aggregate_table_factory(schema, name, *columns)
-
-
 def relationship_table_factory(
     schema: str, name: str, *columns: Column
 ) -> TableFactory_T:
