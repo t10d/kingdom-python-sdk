@@ -38,10 +38,3 @@ class Aggregate(Entity, ABC):
     @property
     def events(self) -> List[Event]:
         return self._events
-
-
-class RootAggregate(Aggregate, ABC):
-    """Base class for root aggregates.
-
-    There's only one root aggregate for each bounded context.
-    """
