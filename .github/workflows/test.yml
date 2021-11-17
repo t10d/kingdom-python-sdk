@@ -64,7 +64,6 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          cd tests/poc/
           alembic revision --autogenerate
           alembic -x data=true -x test=true upgrade head
 

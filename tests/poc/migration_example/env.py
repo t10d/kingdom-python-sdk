@@ -1,11 +1,3 @@
-import os
-import sys
-from pathlib import Path
-
-# Fix the path to include repository root.
-root = Path(os.getcwd()).parent.parent
-sys.path.insert(0, root.as_posix())
-
 from logging.config import fileConfig
 
 from alembic import context
