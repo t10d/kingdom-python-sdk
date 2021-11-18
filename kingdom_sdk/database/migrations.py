@@ -3,6 +3,12 @@ from sqlalchemy import MetaData, create_engine
 
 from kingdom_sdk import config
 
+_include_object = (
+    lambda schema: lambda object, name, type, reflected, compare_to: not (
+        type == "table" and object.schema != schema
+    )
+)
+
 
 def run_migrations_offline(schema: str, metadata: MetaData) -> None:
     """Run migrations in 'offline' mode.
@@ -20,6 +26,7 @@ def run_migrations_offline(schema: str, metadata: MetaData) -> None:
         target_metadata=metadata,
         literal_binds=True,
         include_schemas=True,
+        include_object=_include_object(schema),
         dialect_opts={"paramstyle": "named"},
         version_table_schema=schema,
     )
@@ -41,6 +48,7 @@ def run_migrations_online(schema: str, metadata: MetaData) -> None:
             connection=connection,
             target_metadata=metadata,
             include_schemas=True,
+            include_object=_include_object(schema),
             version_table_schema=schema,
         )
 
