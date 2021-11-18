@@ -27,7 +27,7 @@ fileConfig(config.config_file_name)
 orm.clear_mappers()
 target_metadata = bootstrap()
 
-# Postgres schema name, where the "alembic_versino" table will be stored.
+# Postgres schema name, where the "alembic_version" table will be stored.
 SCHEMA_NAME = "poc"
 
 # Other values from the config, defined by the needs of env.py,
