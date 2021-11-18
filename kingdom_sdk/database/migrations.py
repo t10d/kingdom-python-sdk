@@ -1,3 +1,5 @@
+from typing import Optional
+
 from alembic import context
 from sqlalchemy import MetaData, create_engine
 
@@ -10,7 +12,9 @@ _include_object = (
 )
 
 
-def run_migrations_offline(schema: str, metadata: MetaData) -> None:
+def run_migrations_offline(
+    metadata: MetaData, schema: Optional[str] = None
+) -> None:
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -21,21 +25,31 @@ def run_migrations_offline(schema: str, metadata: MetaData) -> None:
     Calls to context.execute() here emit the given string to the
     script output.
     """
-    context.configure(
-        url=config.get_database_url(),
-        target_metadata=metadata,
-        literal_binds=True,
-        include_schemas=True,
-        include_object=_include_object(schema),
-        dialect_opts={"paramstyle": "named"},
-        version_table_schema=schema,
-    )
+    if schema:
+        context.configure(
+            url=config.get_database_url(),
+            target_metadata=metadata,
+            literal_binds=True,
+            include_schemas=True,
+            include_object=_include_object(schema),
+            dialect_opts={"paramstyle": "named"},
+            version_table_schema=schema,
+        )
+    else:
+        context.configure(
+            url=config.get_database_url(),
+            target_metadata=metadata,
+            literal_binds=True,
+            dialect_opts={"paramstyle": "named"},
+        )
 
     with context.begin_transaction():
         context.run_migrations()
 
 
-def run_migrations_online(schema: str, metadata: MetaData) -> None:
+def run_migrations_online(
+    metadata: MetaData, schema: Optional[str] = None
+) -> None:
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine
@@ -44,13 +58,16 @@ def run_migrations_online(schema: str, metadata: MetaData) -> None:
     connectable = create_engine(config.get_database_url())
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection,
-            target_metadata=metadata,
-            include_schemas=True,
-            include_object=_include_object(schema),
-            version_table_schema=schema,
-        )
+        if schema:
+            context.configure(
+                connection=connection,
+                target_metadata=metadata,
+                include_schemas=True,
+                include_object=_include_object(schema),
+                version_table_schema=schema,
+            )
+        else:
+            context.configure(connection=connection, target_metadata=metadata)
 
         with context.begin_transaction():
             context.run_migrations()

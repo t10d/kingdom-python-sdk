@@ -37,6 +37,6 @@ SCHEMA_NAME = "poc"
 
 
 if context.is_offline_mode():
-    run_migrations_offline(SCHEMA_NAME, target_metadata)
+    run_migrations_offline(target_metadata, SCHEMA_NAME)
 else:
-    run_migrations_online(SCHEMA_NAME, target_metadata)
+    run_migrations_online(target_metadata, SCHEMA_NAME)
