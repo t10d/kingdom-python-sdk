@@ -1,3 +1,4 @@
+from typing import Optional
 from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, Table
@@ -7,7 +8,9 @@ from kingdom_sdk.database.types import TableFactory_T
 from kingdom_sdk.utils import time
 
 
-def entity_table_factory(name: str, *columns: Column) -> TableFactory_T:
+def entity_table_factory(
+    name: str, *columns: Column, schema: Optional[str] = None
+) -> TableFactory_T:
     return lambda metadata: Table(
         name,
         metadata,
@@ -27,18 +30,17 @@ def entity_table_factory(name: str, *columns: Column) -> TableFactory_T:
             default=time.generate_now,
         ),
         *columns,
+        schema=schema,
     )
 
 
-def aggregate_table_factory(name: str, *columns: Column) -> TableFactory_T:
-    return entity_table_factory(name, *columns)
-
-
-def root_aggregate_table_factory(
-    name: str, *columns: Column
+def aggregate_table_factory(
+    name: str, *columns: Column, schema: Optional[str] = None
 ) -> TableFactory_T:
-    return aggregate_table_factory(name, *columns)
+    return entity_table_factory(name, *columns, schema=schema)
 
 
-def relationship_table_factory(name: str, *columns: Column) -> TableFactory_T:
-    return lambda metadata: Table(name, metadata, *columns)
+def relationship_table_factory(
+    name: str, *columns: Column, schema: Optional[str] = None
+) -> TableFactory_T:
+    return lambda metadata: Table(name, metadata, *columns, schema=schema)

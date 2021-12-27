@@ -1,91 +1,42 @@
-import os
-import sys
-from pathlib import Path
-
-# Fix the path to include repository root.
-root = Path(os.getcwd()).parent.parent
-sys.path.insert(0, root.as_posix())
-
 from logging.config import fileConfig
 
 from alembic import context
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, engine, orm
+from sqlalchemy import orm
 
-from kingdom_sdk import config as app_config
+from kingdom_sdk.database.migrations import (
+    run_migrations_offline,
+    run_migrations_online,
+)
 from tests.poc.context_example.bootstrap import bootstrap
 
 load_dotenv()
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
+# This is the Alembic Config object,
+# which provides access to the values within the .ini file in use.
 config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
+# Add your model's MetaData object here.
+# For 'autogenerate' support:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 orm.clear_mappers()
 target_metadata = bootstrap()
 
+# Postgres schema name, where the "alembic_version" table will be stored.
+SCHEMA_NAME = "poc"
 
-# other values from the config, defined by the needs of env.py,
+# Other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
 
-def get_engine() -> engine.Engine:
-    return create_engine(app_config.get_database_url())
-
-
-def run_migrations_offline():
-    """Run migrations in 'offline' mode.
-
-    This configures the context with just a URL
-    and not an Engine, though an Engine is acceptable
-    here as well.  By skipping the Engine creation
-    we don't even need a DBAPI to be available.
-
-    Calls to context.execute() here emit the given string to the
-    script output.
-
-    """
-
-    context.configure(
-        url=app_config.get_database_url(),
-        target_metadata=target_metadata,
-        literal_binds=True,
-        dialect_opts={"paramstyle": "named"},
-    )
-
-    with context.begin_transaction():
-        context.run_migrations()
-
-
-def run_migrations_online():
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
-    connectable = get_engine()
-
-    with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
-
-        with context.begin_transaction():
-            context.run_migrations()
-
-
 if context.is_offline_mode():
-    run_migrations_offline()
+    run_migrations_offline(target_metadata, SCHEMA_NAME)
 else:
-    run_migrations_online()
+    run_migrations_online(target_metadata, SCHEMA_NAME)
