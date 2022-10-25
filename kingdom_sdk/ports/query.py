@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from kingdom_sdk.ports.unit_of_work import AbstractUnitOfWork
 
@@ -12,7 +12,7 @@ class AbstractRawSQLMixin(ABC):
 
 class AbstractTemplateSQLMixin(ABC):
     @abstractmethod
-    def _build_statement(self, **params: Any) -> Tuple[str, Dict]:
+    def _build_statement(self, **params: Any) -> tuple[str, dict]:
         raise NotImplementedError
 
 
@@ -26,7 +26,7 @@ class AbstractReadQuery(ABC):
     @abstractmethod
     def execute(
         self, uow: AbstractUnitOfWork, commit: bool = False, **params: Any
-    ) -> Dict:
+    ) -> dict:
         raise NotImplementedError
 
 

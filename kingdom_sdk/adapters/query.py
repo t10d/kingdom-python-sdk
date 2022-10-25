@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from jinjasql import JinjaSql
 from sqlalchemy.engine import CursorResult
@@ -15,7 +15,7 @@ class JinjaTemplateSqlMixin(AbstractTemplateSQLMixin):
 
     _sql_file_path: str
 
-    def _build_statement(self, **params: Any) -> Tuple[str, Dict]:
+    def _build_statement(self, **params: Any) -> tuple[str, dict]:
         with open(self._sql_file_path) as sql_file:
             file_content = sql_file.read()
         query, bind_params = self._jinja.prepare_query(file_content, params)

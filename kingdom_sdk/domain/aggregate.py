@@ -1,6 +1,5 @@
 from abc import ABC
 from datetime import datetime
-from typing import List
 from uuid import UUID
 
 from kingdom_sdk.domain.entity import Entity
@@ -10,7 +9,7 @@ from kingdom_sdk.domain.message import Event
 class Aggregate(Entity, ABC):
     """Base class for aggregates."""
 
-    _events: List[Event]
+    _events: list[Event]
 
     def __init__(
         self,
@@ -36,5 +35,5 @@ class Aggregate(Entity, ABC):
         return self._events.pop(0)
 
     @property
-    def events(self) -> List[Event]:
+    def events(self) -> list[Event]:
         return self._events

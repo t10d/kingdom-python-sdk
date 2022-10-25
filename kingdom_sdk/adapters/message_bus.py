@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, AsyncGenerator, Callable, Dict, List, Type
+from typing import Any, AsyncGenerator, Callable, Type
 
 from kingdom_sdk.domain.exception import KingdomError
 from kingdom_sdk.domain.message import Command, Event, Message
@@ -14,16 +14,16 @@ logger.setLevel(logging.INFO)
 
 class MessageBus(AbstractMessageBus):
     _uow: AbstractUnitOfWork
-    _event_handlers: Dict[Type[Event], List[Callable]]
-    _command_handlers: Dict[Type[Command], Callable]
-    _queue: List[Message]
+    _event_handlers: dict[Type[Event], list[Callable]]
+    _command_handlers: dict[Type[Command], Callable]
+    _queue: list[Message]
 
     def __init__(
         self,
         uow: AbstractUnitOfWork,
-        event_handlers: Dict[Type[Event], List[Callable]],
-        command_handlers: Dict[Type[Command], Callable],
-        queue: List[Message],
+        event_handlers: dict[Type[Event], list[Callable]],
+        command_handlers: dict[Type[Command], Callable],
+        queue: list[Message],
     ) -> None:
         self._uow = uow
         self._event_handlers = event_handlers
@@ -34,9 +34,9 @@ class MessageBus(AbstractMessageBus):
     def create(
         cls,
         uow: AbstractUnitOfWork,
-        event_handlers: Dict[Type[Event], List[Callable]],
-        command_handlers: Dict[Type[Command], Callable],
-        dependencies: Dict[str, Any],
+        event_handlers: dict[Type[Event], list[Callable]],
+        command_handlers: dict[Type[Command], Callable],
+        dependencies: dict[str, Any],
     ) -> MessageBus:
         """Create a message bus with its handlers dependencies set
         programmatically.
@@ -95,7 +95,7 @@ class MessageBus(AbstractMessageBus):
         else:
             raise UnknownMessage()
 
-    async def handle(self, message: Message) -> List[Warning]:
+    async def handle(self, message: Message) -> list[Warning]:
         self._queue = [message]
         warnings = []
         while self._queue:
@@ -108,7 +108,7 @@ class MessageBus(AbstractMessageBus):
         return warnings
 
     @staticmethod
-    async def _run(handler: AsyncGenerator) -> List[Any]:
+    async def _run(handler: AsyncGenerator) -> list[Any]:
         return [r async for r in handler]
 
 

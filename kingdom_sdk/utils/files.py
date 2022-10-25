@@ -1,10 +1,10 @@
 import os
-from typing import Iterable, List
+from typing import Iterable
 
 
 def find(
     file_name: str, base_dir: str, excluded_dirs: Iterable[str] = ()
-) -> List[str]:
+) -> list[str]:
     """Return a list containing the paths of the files found."""
     return [
         os.path.join(root, file_name)

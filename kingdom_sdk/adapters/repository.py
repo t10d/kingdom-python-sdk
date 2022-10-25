@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List, Optional, Set, Type
+from typing import List, Optional, Type
 
 from sqlalchemy.orm import Query, Session
 
@@ -20,11 +20,11 @@ class SQLAlchemyRepository(AbstractRepository, ABC):
     __model__: Type[Aggregate]
 
     _session: Session
-    _seen: Set[Aggregate]
+    _seen: set[Aggregate]
 
     def __init__(self, session: Session) -> None:
         self._session = session
-        self._seen: Set[Aggregate] = set()
+        self._seen: set[Aggregate] = set()
 
     @property
     def query(self) -> Query:

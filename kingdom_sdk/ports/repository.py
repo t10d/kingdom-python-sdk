@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Optional
 
 from kingdom_sdk.database.types import PrimaryKey_T
 from kingdom_sdk.domain.aggregate import Aggregate
@@ -11,7 +11,7 @@ class AbstractRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def list(self) -> List[Aggregate]:
+    def list(self) -> list[Aggregate]:
         raise NotImplementedError
 
     @abstractmethod

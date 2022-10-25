@@ -3,7 +3,7 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import asdict, dataclass
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 from uuid import UUID
 
 from kingdom_sdk.domain.value_object import ValueObject
@@ -62,7 +62,7 @@ class Event(Message, ABC):
 class PersistentMessage(ValueObject):
     module: str
     classname: str
-    data: Dict[str, Any]
+    data: dict[str, Any]
 
     @classmethod
     def create(cls, message: Message) -> PersistentMessage:  # type: ignore

@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Any, Generator, Iterator, List, Set, Tuple
+from typing import Any, Generator, Iterator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -30,7 +30,7 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
     ...     repository: ...
     """
 
-    _errors: List[Any]
+    _errors: list[Any]
     _session_factory: sessionmaker
     _session: Session
 
@@ -59,7 +59,7 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
         return self._session.execute(statement, params)
 
     def collect_new_events(self) -> Generator:
-        dirty: Set[Aggregate] = set()
+        dirty: set[Aggregate] = set()
 
         for field_name, _ in self._repositories:
             try:
@@ -79,7 +79,7 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork, ABC):
             self.__dict__[field_name] = repository(session)
 
     @property
-    def _repositories(self) -> Iterator[Tuple[str, Any]]:
+    def _repositories(self) -> Iterator[tuple[str, Any]]:
         return (
             (field, module)
             for field, module in self.__annotations__.items()
