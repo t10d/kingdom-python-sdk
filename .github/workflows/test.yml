@@ -69,9 +69,13 @@ jobs:
           alembic -x data=true -x test=true upgrade head
 
       - name: Unit Tests
+        env:
+          DEBUG: true
         run: |
           pytest tests/unit --color=yes --showlocals -v
 
       - name: Integration Tests
+        env:
+          DEBUG: true
         run: |
           pytest tests/integration --color=yes --showlocals -v
