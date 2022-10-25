@@ -15,6 +15,7 @@ DEFAULT_SESSION_FACTORY = sessionmaker(
     bind=create_engine(
         config.get_database_url(),
         isolation_level="REPEATABLE_READ",
+        echo=config.is_debug_active(),
     ),
     autoflush=False,
 )

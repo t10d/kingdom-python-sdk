@@ -55,7 +55,9 @@ def run_migrations_online(
     In this scenario we need to create an Engine
     and associate a connection with the context.
     """
-    connectable = create_engine(config.get_database_url())
+    connectable = create_engine(
+        config.get_database_url(), echo=config.is_debug_active()
+    )
 
     with connectable.connect() as connection:
         if schema:
