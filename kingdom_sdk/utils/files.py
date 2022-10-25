@@ -8,6 +8,6 @@ def find(
     """Return a list containing the paths of the files found."""
     return [
         os.path.join(root, file_name)
-        for root, subdirs, files in os.walk(base_dir)
+        for root, _, files in os.walk(base_dir)
         if root not in excluded_dirs and file_name in files
     ]

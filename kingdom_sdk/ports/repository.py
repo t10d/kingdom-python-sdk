@@ -15,5 +15,5 @@ class AbstractRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
+    def get(self, id: PrimaryKey_T) -> Optional[Aggregate]:
         raise NotImplementedError

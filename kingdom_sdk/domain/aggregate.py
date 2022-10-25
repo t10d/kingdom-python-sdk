@@ -14,7 +14,7 @@ class Aggregate(Entity, ABC):
 
     def __init__(
         self,
-        id: UUID,  # noqa
+        id: UUID,
         version: int,
         is_discarded: bool,
         registered_at: datetime,
