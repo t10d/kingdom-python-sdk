@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Use this makefile to run development procedures.
 
 style: black flake8 isort pydocstyle mypy requirements
@@ -49,3 +51,6 @@ clean:
 	rm -rf dist
 	rm -rf *.egg-info
 	@echo "♲ clean done."
+
+dev:
+	pre-commit install
