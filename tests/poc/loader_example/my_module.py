@@ -1,2 +1,2 @@
-def return_ok():
+def return_ok() -> str:
     return "It works!"

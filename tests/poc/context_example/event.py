@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any
-from uuid import UUID  # noqa: F401
 
 from kingdom_sdk.domain.message import Event
 from kingdom_sdk.utils import time

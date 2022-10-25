@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from kingdom_sdk.domain.aggregate import Aggregate
 from kingdom_sdk.domain.entity import Entity
@@ -17,7 +17,7 @@ class ExampleEntity(Entity):
 
     def __init__(
         self,
-        id: UUID,  # noqa
+        id: UUID,
         version: int,
         is_discarded: bool,
         registered_at: datetime,
@@ -71,7 +71,7 @@ class ExampleAggregate(Aggregate):
 
     def __init__(
         self,
-        id: UUID,  # noqa
+        id: UUID,
         version: int,
         is_discarded: bool,
         registered_at: datetime,
