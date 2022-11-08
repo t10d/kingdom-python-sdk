@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List, Optional, Type
+from typing import Optional, Type
 
 from sqlalchemy.orm import Query, Session
 
@@ -34,14 +34,14 @@ class SQLAlchemyRepository(AbstractRepository, ABC):
         self._seen.add(aggregate)
         self._session.add(aggregate)
 
-    def list(self) -> List[Aggregate]:
+    # XXX: reserved word
+    def list(self) -> list[Aggregate]:
         return self.query.all()  # type: ignore
 
     def get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
-        aggregate = self._get(id)
-        if aggregate:
+        if aggregate := self._get(id):
             self._seen.add(aggregate)
-        return aggregate
+        return None
 
     def _get(self, id: PrimaryKey_T) -> Optional[Aggregate]:  # noqa
         return self.query.filter(  # type: ignore
